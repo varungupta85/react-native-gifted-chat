@@ -139,7 +139,7 @@ MessageText.defaultProps = {
   currentMessage: {
     text: '',
   },
-  containerStyle: {},
+  messageTextContainerStyle: {},
   textStyle: {},
   linkStyle: {},
   usernameStyle: {},
@@ -148,7 +148,7 @@ MessageText.defaultProps = {
 MessageText.propTypes = {
   position: React.PropTypes.oneOf(['left', 'right']),
   currentMessage: React.PropTypes.object,
-  containerStyle: React.PropTypes.shape({
+  messageTextContainerStyle: React.PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
