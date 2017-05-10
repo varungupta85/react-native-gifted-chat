@@ -78,6 +78,7 @@ export default class MessageText extends React.Component {
             {type: 'phone', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onPhonePress},
             {type: 'email', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onEmailPress},
           ]}
+          {...this.props.textMessageProps}
         >
           {this.props.currentMessage.text}
         </ParsedText>
@@ -144,6 +145,7 @@ MessageText.defaultProps = {
   textStyle: {},
   linkStyle: {},
   usernameStyle: {},
+  textMessageProps: {}
 };
 
 MessageText.propTypes = {
