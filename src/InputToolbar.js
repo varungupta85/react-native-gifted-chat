@@ -50,7 +50,7 @@ export default class InputToolbar extends React.Component {
 
   render() {
     return (
-      <View style={[styles.container, this.props.containerStyle]}>
+      <View style={[styles.container, this.props.inputToolbarContainerStyle]}>
         <View style={[styles.primary, this.props.primaryStyle]}>
           {this.renderActions()}
           {this.renderComposer()}
@@ -82,7 +82,7 @@ InputToolbar.defaultProps = {
   renderActions: null,
   renderSend: null,
   renderComposer: null,
-  containerStyle: {},
+  inputToolbarContainerStyle: {},
   primaryStyle: {},
   accessoryStyle: {},
 };
@@ -93,7 +93,7 @@ InputToolbar.propTypes = {
   renderSend: React.PropTypes.func,
   renderComposer: React.PropTypes.func,
   onPressActionButton: React.PropTypes.func,
-  containerStyle: View.propTypes.style,
+  inputToolbarContainerStyle: View.propTypes.style,
   primaryStyle: View.propTypes.style,
   accessoryStyle: View.propTypes.style,
 };
