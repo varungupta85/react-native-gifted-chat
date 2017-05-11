@@ -6,15 +6,19 @@ import {
 } from 'react-native';
 
 export default class Composer extends React.Component {
-  onChange(e) {
-    const contentSize = e.nativeEvent.contentSize;
-    if (!this.contentSize) {
-      this.contentSize = contentSize;
-      this.props.onInputSizeChanged(this.contentSize);
-    } else if (this.contentSize.width !== contentSize.width || this.contentSize.height !== contentSize.height) {
-      this.contentSize = contentSize;
-      this.props.onInputSizeChanged(this.contentSize);
+  componentDidMount() {
+    if(this.props.initialChatText && this.props.initialChatText !== '') {
+      this.props.onTextChanged(this.props.initialChatText)
     }
+  }
+
+  onContentSizeChange(e) {
+    const contentSize = {
+      height: e.nativeEvent.contentSize.height,
+      width: e.nativeEvent.contentSize.width
+    }
+    this.contentSize = contentSize;
+    this.props.onInputSizeChanged(this.contentSize);
   }
 
   onChangeText(text) {
@@ -27,10 +31,8 @@ export default class Composer extends React.Component {
         placeholder={this.props.placeholder}
         placeholderTextColor={this.props.placeholderTextColor}
         multiline={this.props.multiline}
-
-        onChange={(e) => this.onChange(e)}
         onChangeText={text => this.onChangeText(text)}
-
+        onContentSizeChange={e => this.onContentSizeChange(e)}
         style={[styles.textInput, this.props.textInputStyle, {height: this.props.composerHeight}]}
 
         value={this.props.text}

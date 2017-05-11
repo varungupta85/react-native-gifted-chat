@@ -54,7 +54,8 @@ class GiftedChat extends React.Component {
       isInitialized: false, // initialization will calculate maxHeight before rendering the chat
       composerHeight: MIN_COMPOSER_HEIGHT,
       messagesContainerHeight: null,
-      typingDisabled: false
+      typingDisabled: false,
+      text: ''
     };
 
     this.onKeyboardWillShow = this.onKeyboardWillShow.bind(this);
@@ -404,7 +405,7 @@ class GiftedChat extends React.Component {
   renderInputToolbar() {
     const inputToolbarProps = {
       ...this.props,
-      text: !this.state.text ? this.props.initialChatText : this.state.text,
+      text: this.state.text,
       composerHeight: Math.max(MIN_COMPOSER_HEIGHT, this.state.composerHeight),
       onSend: this.onSend,
       onInputSizeChanged: this.onInputSizeChanged,
@@ -412,7 +413,8 @@ class GiftedChat extends React.Component {
       textInputProps: {
         ...this.props.textInputProps,
         ref: textInput => this.textInput = textInput,
-        maxLength: this.getIsTypingDisabled() ? 0 : this.props.maxInputLength
+        maxLength: this.getIsTypingDisabled() ? 0 : this.props.maxInputLength,
+        initialChatText: this.props.initialChatText
       }
     };
     if (this.getIsTypingDisabled()) {
@@ -513,8 +515,7 @@ GiftedChat.defaultProps = {
   minInputToolbarHeight: 44,
   isLoadingEarlier: false,
   messageIdGenerator: () => uuid.v4(),
-  maxInputLength: null,
-  initialChatText: ''
+  maxInputLength: null
 };
 
 GiftedChat.propTypes = {
