@@ -6,18 +6,8 @@ import {
 
 import Composer from './Composer';
 import Send from './Send';
-import Actions from './Actions';
 
 export default class InputToolbar extends React.Component {
-  renderActions() {
-    if (this.props.renderActions) {
-      return this.props.renderActions(this.props);
-    } else if (this.props.onPressActionButton) {
-      return <Actions {...this.props} />;
-    }
-    return null;
-  }
-
   renderSend() {
     if (this.props.renderSend) {
       return this.props.renderSend(this.props);
@@ -52,7 +42,6 @@ export default class InputToolbar extends React.Component {
     return (
       <View style={[styles.container, this.props.inputToolbarContainerStyle]}>
         <View style={[styles.primary, this.props.primaryStyle]}>
-          {this.renderActions()}
           {this.renderComposer()}
           {this.renderSend()}
         </View>
@@ -79,7 +68,6 @@ const styles = StyleSheet.create({
 
 InputToolbar.defaultProps = {
   renderAccessory: null,
-  renderActions: null,
   renderSend: null,
   renderComposer: null,
   inputToolbarContainerStyle: {},
@@ -89,10 +77,8 @@ InputToolbar.defaultProps = {
 
 InputToolbar.propTypes = {
   renderAccessory: React.PropTypes.func,
-  renderActions: React.PropTypes.func,
   renderSend: React.PropTypes.func,
   renderComposer: React.PropTypes.func,
-  onPressActionButton: React.PropTypes.func,
   inputToolbarContainerStyle: View.propTypes.style,
   primaryStyle: View.propTypes.style,
   accessoryStyle: View.propTypes.style,

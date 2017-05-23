@@ -162,10 +162,6 @@ const styles = {
   }
 };
 
-Bubble.contextTypes = {
-  actionSheet: React.PropTypes.func,
-};
-
 Bubble.defaultProps = {
   touchableProps: {},
   renderMessageImage: null,

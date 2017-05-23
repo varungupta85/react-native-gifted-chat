@@ -7,12 +7,10 @@ import {
   View,
 } from 'react-native';
 
-import ActionSheet from '@expo/react-native-action-sheet';
 import moment from 'moment/min/moment-with-locales.min';
 import uuid from 'uuid';
 
 import * as utils from './utils';
-import Actions from './Actions';
 import Avatar from './Avatar';
 import Bubble from './Bubble';
 import MessageImage from './MessageImage';
@@ -96,7 +94,6 @@ class GiftedChat extends React.Component {
 
   getChildContext() {
     return {
-      actionSheet: () => this._actionSheetRef,
       getLocale: this.getLocale,
     };
   }
@@ -450,12 +447,10 @@ class GiftedChat extends React.Component {
   render() {
     if (this.state.isInitialized === true) {
       return (
-        <ActionSheet ref={component => this._actionSheetRef = component}>
-          <View style={styles.container} onLayout={this.onMainViewLayout}>
-            {this.renderMessages()}
-            {this.renderInputToolbar()}
-          </View>
-        </ActionSheet>
+        <View style={styles.container} onLayout={this.onMainViewLayout}>
+          {this.renderMessages()}
+          {this.renderInputToolbar()}
+        </View>
       );
     }
     return (
@@ -473,7 +468,6 @@ const styles = StyleSheet.create({
 });
 
 GiftedChat.childContextTypes = {
-  actionSheet: React.PropTypes.func,
   getLocale: React.PropTypes.func,
 };
 
@@ -494,7 +488,6 @@ GiftedChat.defaultProps = {
     android: 'always',
   }),
   renderAccessory: null,
-  renderActions: null,
   renderAvatar: null,
   renderBubble: null,
   renderFooter: null,
@@ -527,7 +520,6 @@ GiftedChat.propTypes = {
   locale: React.PropTypes.string,
   isAnimated: React.PropTypes.bool,
   renderAccessory: React.PropTypes.func,
-  renderActions: React.PropTypes.func,
   renderAvatar: React.PropTypes.func,
   renderBubble: React.PropTypes.func,
   renderFooter: React.PropTypes.func,
@@ -553,7 +545,6 @@ GiftedChat.propTypes = {
 
 export {
   GiftedChat,
-  Actions,
   Avatar,
   Bubble,
   MessageImage,
