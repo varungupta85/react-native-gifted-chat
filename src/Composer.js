@@ -6,6 +6,10 @@ import {
 } from 'react-native';
 
 export default class Composer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handledOnContentSizeChange = false
+  }
   componentDidMount() {
     if(this.props.initialChatText && this.props.initialChatText !== '') {
       this.props.onTextChanged(this.props.initialChatText)
@@ -13,18 +17,31 @@ export default class Composer extends React.Component {
   }
 
   onContentSizeChange(e) {
-    const contentSize = {
-      height: e.nativeEvent.contentSize.height,
-      width: e.nativeEvent.contentSize.width
+    this.handledOnContentSizeChange = true
+    this.onContentSizeChangeCore(e.nativeEvent.contentSize)
+  }
+
+  onChange(e) {
+    this.onContentSizeChangeCore(e.nativeEvent.contentSize)
+  }
+
+  onContentSizeChangeCore(contentSize) {
+    if (!this.contentSize) {
+      this.contentSize = contentSize;
+      this.props.onInputSizeChanged(this.contentSize);
+    } else if (this.contentSize.width !== contentSize.width || this.contentSize.height !== contentSize.height) {
+      this.contentSize = contentSize;
+      this.props.onInputSizeChanged(this.contentSize);
     }
-    this.contentSize = contentSize;
-    this.props.onInputSizeChanged(this.contentSize);
   }
 
   onChangeText(text) {
     this.props.onTextChanged(text);
   }
 
+  // onContentSizeChange is called just once for Android, so we need to use onChange also
+  // onChange is not called on initial render, so we need to use onContentSizeChange to 
+  // set the height of the input correctly in case there was some unsent chat message
   render() {
     return (
       <TextInput
@@ -32,7 +49,8 @@ export default class Composer extends React.Component {
         placeholderTextColor={this.props.placeholderTextColor}
         multiline={this.props.multiline}
         onChangeText={text => this.onChangeText(text)}
-        onContentSizeChange={e => this.onContentSizeChange(e)}
+        onContentSizeChange={this.handledOnContentSizeChange && Platform.OS === 'android' ? undefined : e => this.onContentSizeChange(e)}
+        onChange={e => this.onChange(e)}
         style={[styles.textInput, this.props.textInputStyle, {height: this.props.composerHeight}]}
 
         value={this.props.text}
