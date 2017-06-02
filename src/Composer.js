@@ -6,32 +6,27 @@ import {
 } from 'react-native';
 
 export default class Composer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handledOnContentSizeChange = false
+  state = {
+    textInputHeight: this.props.initialChatText && this.props.initialChatText !== '' ? 100 : 40
   }
+
   componentDidMount() {
     if(this.props.initialChatText && this.props.initialChatText !== '') {
       this.props.onTextChanged(this.props.initialChatText)
     }
   }
 
-  onContentSizeChange(e) {
-    this.handledOnContentSizeChange = true
-    this.onContentSizeChangeCore(e.nativeEvent.contentSize)
-  }
-
   onChange(e) {
-    this.onContentSizeChangeCore(e.nativeEvent.contentSize)
+    this.setState({
+      textInputHeight: e.nativeEvent.contentSize.height
+    })
   }
 
-  onContentSizeChangeCore(contentSize) {
-    if (!this.contentSize) {
-      this.contentSize = contentSize;
-      this.props.onInputSizeChanged(this.contentSize);
-    } else if (this.contentSize.width !== contentSize.width || this.contentSize.height !== contentSize.height) {
-      this.contentSize = contentSize;
-      this.props.onInputSizeChanged(this.contentSize);
+  onContentSizeChange(e) {
+    if(this.state.textInputHeight === undefined && this.props.initialChatText) {
+      this.setState({
+        textInputHeight: e.nativeEvent.contentSize.height
+      })
     }
   }
 
@@ -43,16 +38,21 @@ export default class Composer extends React.Component {
   // onChange is not called on initial render, so we need to use onContentSizeChange to 
   // set the height of the input correctly in case there was some unsent chat message
   render() {
+    const osSpecificStyles = Platform.select({
+      android: {
+        height: this.state.textInputHeight
+      }
+    })
+
     return (
       <TextInput
+        ref={component => this.textInput = component}
         placeholder={this.props.placeholder}
         placeholderTextColor={this.props.placeholderTextColor}
         multiline={this.props.multiline}
         onChangeText={text => this.onChangeText(text)}
-        onContentSizeChange={this.handledOnContentSizeChange && Platform.OS === 'android' ? undefined : e => this.onContentSizeChange(e)}
         onChange={e => this.onChange(e)}
-        style={[styles.textInput, this.props.textInputStyle, {height: this.props.composerHeight}]}
-
+        style={[styles.textInput, this.props.textInputStyle, osSpecificStyles]}
         value={this.props.text}
         accessibilityLabel={this.props.text || this.props.placeholder}
         enablesReturnKeyAutomatically={true}
@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
       ios: 5,
       android: 3,
     }),
-  },
+    maxHeight: 100
+  }
 });
 
 Composer.defaultProps = {

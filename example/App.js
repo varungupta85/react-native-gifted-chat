@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 
-import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
+import {GiftedChat, Actions, Bubble} from './src/GiftedChat';
 import CustomActions from './CustomActions';
 import CustomView from './CustomView';
 
@@ -152,15 +152,81 @@ export default class Example extends React.Component {
     );
   }
 
-  renderBubble(props) {
+  renderBubble = (props) => {
     return (
       <Bubble
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: '#f0f0f0',
+            backgroundColor: 'grey',
+            borderRadius: 3,
+            elevation: 1,
+            shadowColor: 'brown',
+            shadowOpacity: 0.5,
+            shadowOffset: {
+              height: 1
+            },
+            shadowRadius: 1
+          },
+          right: {
+            backgroundColor: '#ECEFF1',
+            borderRadius: 3,
+            elevation: 1,
+            shadowColor: 'brown',
+            shadowOpacity: 0.5,
+            shadowOffset: {
+              height: 1
+            },
+            shadowRadius: 1
           }
         }}
+        bottomContainerStyle={{}}
+        containerToNextStyle={{}}
+        containerToPreviousStyle={{}}
+        timeContainerStyle={{
+          left: {
+            marginLeft: 0,
+            marginRight: 0
+          },
+          right: {
+            marginLeft: 0,
+            marginRight: 0
+          }
+        }}
+        textStyle={{
+          left: {
+            marginTop: 2,
+            marginBottom: 0,
+            marginLeft: 5,
+            marginRight: 5,
+            fontSize: 14,
+          },
+          right: {
+            marginTop: 2,
+            marginBottom: 0,
+            marginLeft: 5,
+            marginRight: 5,
+            fontSize: 14,
+            color: 'black'
+          }
+        }}
+        timeTextStyle={{
+          left: {
+            color: 'grey',
+            marginTop: 2,
+            marginBottom: 0,
+            marginLeft: 5,
+            marginRight: 5
+          },
+          right: {
+            color: 'grey',
+            marginTop: 2,
+            marginBottom: 0,
+            marginLeft: 5,
+            marginRight: 5
+          }
+        }}
+        usernameStyle={{}}
       />
     );
   }
@@ -203,6 +269,29 @@ export default class Example extends React.Component {
         renderBubble={this.renderBubble}
         renderCustomView={this.renderCustomView}
         renderFooter={this.renderFooter}
+
+        inputToolbarContainerStyle={{
+              backgroundColor: 'transparent',
+              borderTopWidth: 0,
+              marginTop: 5
+            }}
+            textInputStyle={{
+              backgroundColor: 'white',
+              marginRight: 10,
+              marginLeft: 10,
+              marginTop: 0,
+              marginBottom: 0,
+              borderRadius: 5,
+              paddingHorizontal: 5,
+              paddingBottom: Platform.select({
+                ios: 5
+              }),
+              lineHeight: 20,
+              textAlignVertical: 'center',
+              borderWidth: 1,
+              borderColor: 'blue',
+              maxHeight: 100
+            }}
       />
     );
   }

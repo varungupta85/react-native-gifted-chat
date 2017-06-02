@@ -137,7 +137,6 @@ export default class MessageContainer extends React.Component {
 
   render() {
     return (
-      <View ref='container' style={{flex:1}}>
         <ListView
           enableEmptySections={true}
           automaticallyAdjustContentInsets={false}
@@ -153,7 +152,6 @@ export default class MessageContainer extends React.Component {
           renderFooter={this.renderLoadEarlier}
           renderScrollComponent={this.renderScrollComponent}
         />
-      </View>
     );
   }
 }

@@ -27,25 +27,11 @@ export default class InputToolbar extends React.Component {
     );
   }
 
-  renderAccessory() {
-    if (this.props.renderAccessory) {
-      return (
-        <View style={[styles.accessory, this.props.accessoryStyle]}>
-          {this.props.renderAccessory(this.props)}
-        </View>
-      );
-    }
-    return null;
-  }
-
   render() {
     return (
       <View style={[styles.container, this.props.inputToolbarContainerStyle]}>
-        <View style={[styles.primary, this.props.primaryStyle]}>
-          {this.renderComposer()}
-          {this.renderSend()}
-        </View>
-        {this.renderAccessory()}
+        {this.renderComposer()}
+        {this.renderSend()}
       </View>
     );
   }
@@ -55,31 +41,20 @@ const styles = StyleSheet.create({
   container: {
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#b2b2b2',
-    backgroundColor: '#FFFFFF',
-  },
-  primary: {
+    backgroundColor: '#FFFF00',
     flexDirection: 'row',
     alignItems: 'flex-end',
-  },
-  accessory: {
-    height: 44,
-  },
+  }
 });
 
 InputToolbar.defaultProps = {
-  renderAccessory: null,
   renderSend: null,
   renderComposer: null,
   inputToolbarContainerStyle: {},
-  primaryStyle: {},
-  accessoryStyle: {},
 };
 
 InputToolbar.propTypes = {
-  renderAccessory: React.PropTypes.func,
   renderSend: React.PropTypes.func,
   renderComposer: React.PropTypes.func,
   inputToolbarContainerStyle: View.propTypes.style,
-  primaryStyle: View.propTypes.style,
-  accessoryStyle: View.propTypes.style,
 };
