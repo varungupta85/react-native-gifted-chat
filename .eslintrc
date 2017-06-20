@@ -1,12 +1,19 @@
 {
-  "extends": "cooperka/react-native",
+   "parser": "babel-eslint",
+    "plugins": [
+        "react"
+    ],
+    "extends": [
+          "eslint:recommended",
+          "plugin:react/recommended"
+      ],
 
-  "env": {
-    "browser": true,
-    "jest": true
-  },
+    "env": {
+      "browser": true,
+      "jest": true
+    },
 
-  // Any rules here will override those from
-  // https://github.com/cooperka/eslint-config-cooperka.
-  "rules": {}
+    // Any rules here will override those from
+    // https://github.com/cooperka/eslint-config-cooperka.
+    "rules": {}
 }

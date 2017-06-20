@@ -1,11 +1,8 @@
 import React from 'react';
 import {
-  Animated,
-  InteractionManager,
   Platform,
   StyleSheet,
-  View,
-  KeyboardAvoidingView
+  View
 } from 'react-native';
 
 import moment from 'moment/min/moment-with-locales.min';
@@ -25,6 +22,7 @@ import MessageContainer from './MessageContainer';
 import Send from './Send';
 import Time from './Time';
 import GiftedAvatar from './GiftedAvatar';
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 class GiftedChat extends React.Component {
   constructor(props) {
@@ -241,12 +239,12 @@ class GiftedChat extends React.Component {
   }
 
   render() {
-      const ContainerView = Platform.OS === 'ios' ? KeyboardAvoidingView : View
       return (
-        <ContainerView behavior='padding' style={styles.container} {...this.props.keyboardAvoidingViewProps}>
+        <View behavior='padding' style={styles.container}>
           {this.renderMessages()}
           {this.renderInputToolbar()}
-        </ContainerView>
+          {Platform.OS === 'ios' && <KeyboardSpacer />}
+        </View>
       );
   }
 }
@@ -302,6 +300,7 @@ GiftedChat.propTypes = {
   loadEarlier: React.PropTypes.bool,
   onLoadEarlier: React.PropTypes.func,
   locale: React.PropTypes.string,
+  initialChatText: React.PropTypes.string,
   renderAvatar: React.PropTypes.func,
   renderBubble: React.PropTypes.func,
   renderFooter: React.PropTypes.func,
@@ -318,7 +317,9 @@ GiftedChat.propTypes = {
   renderSend: React.PropTypes.func,
   renderTime: React.PropTypes.func,
   user: React.PropTypes.object,
+  textInputProps: React.PropTypes.object,
   bottomOffset: React.PropTypes.number,
+  maxInputLength: React.PropTypes.number,
   isLoadingEarlier: React.PropTypes.bool,
   messageIdGenerator: React.PropTypes.func,
   keyboardShouldPersistTaps: React.PropTypes.oneOf(['always', 'never', 'handled']),
