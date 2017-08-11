@@ -38,8 +38,6 @@ class GiftedChat extends React.Component {
     this._messages = [];
 
     this.state = {
-      isInitialized: false, // initialization will calculate maxHeight before rendering the chat
-      typingDisabled: false,
       text: ''
     };
 
@@ -115,16 +113,6 @@ class GiftedChat extends React.Component {
     return this._messages;
   }
 
-  setIsTypingDisabled(value) {
-    this.setState({
-      typingDisabled: value
-    });
-  }
-
-  getIsTypingDisabled() {
-    return this.state.typingDisabled;
-  }
-
   setIsMounted(value) {
     this._isMounted = value;
   }
@@ -170,20 +158,11 @@ class GiftedChat extends React.Component {
     });
 
     if (shouldResetInputToolbar === true) {
-      this.setIsTypingDisabled(true);
       this.resetInputToolbar();
     }
 
     this.props.onSend(messages);
     this.scrollToBottom();
-
-    if (shouldResetInputToolbar === true) {
-      setTimeout(() => {
-        if (this.getIsMounted() === true) {
-          this.setIsTypingDisabled(false);
-        }
-      }, 100);
-    }
   }
 
   resetInputToolbar() {
@@ -196,9 +175,6 @@ class GiftedChat extends React.Component {
   }
 
   onInputTextChanged(text) {
-    if (this.getIsTypingDisabled()) {
-      return;
-    }
     if (this.props.onInputTextChanged) {
       this.props.onInputTextChanged(text);
     }
@@ -214,7 +190,7 @@ class GiftedChat extends React.Component {
       textInputProps: {
         ...this.props.textInputProps,
         ref: textInput => this.textInput = textInput,
-        maxLength: this.getIsTypingDisabled() ? 0 : this.props.maxInputLength,
+        maxLength: this.props.maxInputLength,
         initialChatText: this.props.initialChatText
       }
     };

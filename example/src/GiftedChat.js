@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Animated,
-  InteractionManager,
   Platform,
   StyleSheet,
   View,
@@ -322,6 +320,10 @@ GiftedChat.propTypes = {
   isLoadingEarlier: React.PropTypes.bool,
   messageIdGenerator: React.PropTypes.func,
   keyboardShouldPersistTaps: React.PropTypes.oneOf(['always', 'never', 'handled']),
+  textInputProps: React.PropTypes.object,
+  maxInputLength: React.PropTypes.number,
+  initialChatText: React.PropTypes.string,
+  keyboardAvoidingViewProps: React.PropTypes.object,
 };
 
 export {
