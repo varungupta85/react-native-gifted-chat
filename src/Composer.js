@@ -40,7 +40,7 @@ export default class Composer extends React.Component {
   render() {
     const osSpecificStyles = Platform.select({
       android: {
-        height: this.state.textInputHeight
+        height: this.state.textInputHeight + (Platform.Version === 21 ? 10 : 0)
       }
     })
 
