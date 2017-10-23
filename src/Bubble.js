@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import PropTypes from 'prop-types'
 
 import MessageText from './MessageText';
 import MessageImage from './MessageImage';
@@ -188,37 +189,37 @@ Bubble.defaultProps = {
 };
 
 Bubble.propTypes = {
-  touchableProps: React.PropTypes.object,
-  renderMessageImage: React.PropTypes.func,
-  renderMessageText: React.PropTypes.func,
-  renderCustomView: React.PropTypes.func,
-  renderTime: React.PropTypes.func,
-  position: React.PropTypes.oneOf(['left', 'right']),
-  currentMessage: React.PropTypes.object,
-  nextMessage: React.PropTypes.object,
-  previousMessage: React.PropTypes.object,
-  bubbleContainerStyle: React.PropTypes.shape({
+  touchableProps: PropTypes.object,
+  renderMessageImage: PropTypes.func,
+  renderMessageText: PropTypes.func,
+  renderCustomView: PropTypes.func,
+  renderTime: PropTypes.func,
+  position: PropTypes.oneOf(['left', 'right']),
+  currentMessage: PropTypes.object,
+  nextMessage: PropTypes.object,
+  previousMessage: PropTypes.object,
+  bubbleContainerStyle: PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
-  wrapperStyle: React.PropTypes.shape({
+  wrapperStyle: PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
-  bottomContainerStyle: React.PropTypes.shape({
+  bottomContainerStyle: PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
   tickStyle: Text.propTypes.style,
-  containerToNextStyle: React.PropTypes.shape({
+  containerToNextStyle: PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
-  containerToPreviousStyle: React.PropTypes.shape({
+  containerToPreviousStyle: PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
   //TODO: remove in next major release
-  isSameDay: React.PropTypes.func,
-  isSameUser: React.PropTypes.func,
+  isSameDay: PropTypes.func,
+  isSameUser: PropTypes.func,
 };

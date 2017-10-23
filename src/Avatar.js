@@ -2,6 +2,7 @@ import React from "react";
 import {Image, StyleSheet, View} from "react-native";
 import GiftedAvatar from "./GiftedAvatar";
 import {isSameUser, isSameDay, warnDeprecated} from "./utils";
+import PropTypes from 'prop-types'
 
 export default class Avatar extends React.Component {
   renderAvatar() {
@@ -92,20 +93,20 @@ Avatar.defaultProps = {
 };
 
 Avatar.propTypes = {
-  renderAvatarOnTop: React.PropTypes.bool,
-  position: React.PropTypes.oneOf(['left', 'right']),
-  currentMessage: React.PropTypes.object,
-  nextMessage: React.PropTypes.object,
-  onPressAvatar: React.PropTypes.func,
-  avatarContainerStyle: React.PropTypes.shape({
+  renderAvatarOnTop: PropTypes.bool,
+  position: PropTypes.oneOf(['left', 'right']),
+  currentMessage: PropTypes.object,
+  nextMessage: PropTypes.object,
+  onPressAvatar: PropTypes.func,
+  avatarContainerStyle: PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
-  imageStyle: React.PropTypes.shape({
+  imageStyle: PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
   //TODO: remove in next major release
-  isSameDay: React.PropTypes.func,
-  isSameUser: React.PropTypes.func
+  isSameDay: PropTypes.func,
+  isSameUser: PropTypes.func
 };

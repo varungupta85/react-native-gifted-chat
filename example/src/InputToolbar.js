@@ -6,6 +6,7 @@ import {
 
 import Composer from './Composer';
 import Send from './Send';
+import PropTypes from 'prop-types'
 
 export default class InputToolbar extends React.Component {
   renderSend() {
@@ -54,7 +55,7 @@ InputToolbar.defaultProps = {
 };
 
 InputToolbar.propTypes = {
-  renderSend: React.PropTypes.func,
-  renderComposer: React.PropTypes.func,
+  renderSend: PropTypes.func,
+  renderComposer: PropTypes.func,
   inputToolbarContainerStyle: View.propTypes.style,
 };

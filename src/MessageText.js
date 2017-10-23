@@ -9,6 +9,7 @@ import {
 import ParsedText from 'react-native-parsed-text';
 import GiftedAvatar from './GiftedAvatar'
 import {isSameUser, isSameDay} from "./utils";
+import PropTypes from 'prop-types'
 
 export default class MessageText extends React.Component {
   
@@ -102,17 +103,17 @@ MessageText.defaultProps = {
 };
 
 MessageText.propTypes = {
-  position: React.PropTypes.oneOf(['left', 'right']),
-  currentMessage: React.PropTypes.object,
-  messageTextContainerStyle: React.PropTypes.shape({
+  position: PropTypes.oneOf(['left', 'right']),
+  currentMessage: PropTypes.object,
+  messageTextContainerStyle: PropTypes.shape({
     left: View.propTypes.style,
     right: View.propTypes.style,
   }),
-  textStyle: React.PropTypes.shape({
+  textStyle: PropTypes.shape({
     left: Text.propTypes.style,
     right: Text.propTypes.style,
   }),
-  linkStyle: React.PropTypes.shape({
+  linkStyle: PropTypes.shape({
     left: Text.propTypes.style,
     right: Text.propTypes.style,
   }),
