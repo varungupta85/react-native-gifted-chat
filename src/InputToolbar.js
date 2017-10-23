@@ -2,6 +2,7 @@ import React from 'react';
 import {
   StyleSheet,
   View,
+  ViewPropTypes
 } from 'react-native';
 
 import Composer from './Composer';
@@ -57,5 +58,5 @@ InputToolbar.defaultProps = {
 InputToolbar.propTypes = {
   renderSend: PropTypes.func,
   renderComposer: PropTypes.func,
-  inputToolbarContainerStyle: View.propTypes.style,
+  inputToolbarContainerStyle: ViewPropTypes.style,
 };

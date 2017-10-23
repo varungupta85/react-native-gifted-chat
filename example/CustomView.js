@@ -5,8 +5,9 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
-  View,
+  ViewPropTypes,
 } from 'react-native';
+import PropTypes from 'prop-types'
 
 export default class CustomView extends React.Component {
   render() {
@@ -63,7 +64,7 @@ CustomView.defaultProps = {
 };
 
 CustomView.propTypes = {
-  currentMessage: React.PropTypes.object,
-  containerStyle: View.propTypes.style,
-  mapViewStyle: View.propTypes.style,
+  currentMessage: PropTypes.object,
+  containerStyle: ViewPropTypes.style,
+  mapViewStyle: ViewPropTypes.style,
 };

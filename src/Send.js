@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ViewPropTypes
 } from 'react-native';
 import PropTypes from 'prop-types'
 
@@ -60,6 +61,6 @@ Send.propTypes = {
   text: PropTypes.string,
   onSend: PropTypes.func,
   label: PropTypes.string,
-  containerStyle: View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
   textStyle: Text.propTypes.style,
 };

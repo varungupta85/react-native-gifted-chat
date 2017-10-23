@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ViewPropTypes
 } from 'react-native';
 import PropTypes from 'prop-types'
 
@@ -95,8 +96,8 @@ LoadEarlier.propTypes = {
   onLoadEarlier: PropTypes.func,
   isLoadingEarlier: PropTypes.bool,
   label: PropTypes.string,
-  containerStyle: View.propTypes.style,
-  wrapperStyle: View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
+  wrapperStyle: ViewPropTypes.style,
   textStyle: Text.propTypes.style,
-  activityIndicatorStyle: View.propTypes.style,
+  activityIndicatorStyle: ViewPropTypes.style,
 };

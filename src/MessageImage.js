@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   Dimensions,
+  ViewPropTypes
 } from 'react-native';
 import Lightbox from 'react-native-lightbox';
 import PropTypes from 'prop-types'
@@ -58,7 +59,7 @@ MessageImage.defaultProps = {
 
 MessageImage.propTypes = {
   currentMessage: PropTypes.object,
-  messageImageContainerStyle: View.propTypes.style,
+  messageImageContainerStyle: ViewPropTypes.style,
   imageStyle: Image.propTypes.style,
   imageProps: PropTypes.object,
   lightboxProps: PropTypes.object,

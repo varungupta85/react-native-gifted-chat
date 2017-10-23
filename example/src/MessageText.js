@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Linking,
+  ViewPropTypes,
   StyleSheet,
   Text,
   View,
@@ -106,8 +106,8 @@ MessageText.propTypes = {
   position: PropTypes.oneOf(['left', 'right']),
   currentMessage: PropTypes.object,
   messageTextContainerStyle: PropTypes.shape({
-    left: View.propTypes.style,
-    right: View.propTypes.style,
+    left: ViewPropTypes.style,
+    right: ViewPropTypes.style,
   }),
   textStyle: PropTypes.shape({
     left: Text.propTypes.style,

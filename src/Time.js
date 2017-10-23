@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ViewPropTypes
 } from 'react-native';
 
 import moment from 'moment';
@@ -70,8 +71,8 @@ Time.propTypes = {
   position: PropTypes.oneOf(['left', 'right']),
   currentMessage: PropTypes.object,
   timeContainerStyle: PropTypes.shape({
-    left: View.propTypes.style,
-    right: View.propTypes.style,
+    left: ViewPropTypes.style,
+    right: ViewPropTypes.style,
   }),
   timeTextStyle: PropTypes.shape({
     left: Text.propTypes.style,
