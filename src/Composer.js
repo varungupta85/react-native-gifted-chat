@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 export default class Composer extends React.Component {
   state = {
-    textInputHeight: this.props.initialChatText && this.props.initialChatText !== '' ? 100 : 40
+    textInputHeight: 40
   }
 
   componentDidMount() {
@@ -17,27 +17,16 @@ export default class Composer extends React.Component {
     }
   }
 
-  onChange(e) {
-    this.setState({
-      textInputHeight: e.nativeEvent.contentSize.height
-    })
-  }
-
-  onContentSizeChange(e) {
-    if(this.state.textInputHeight === undefined && this.props.initialChatText) {
+  onContentSizeChange = (e) => {
       this.setState({
         textInputHeight: e.nativeEvent.contentSize.height
       })
-    }
   }
 
-  onChangeText(text) {
+  onChangeText = (text) => {
     this.props.onTextChanged(text);
   }
 
-  // onContentSizeChange is called just once for Android, so we need to use onChange also
-  // onChange is not called on initial render, so we need to use onContentSizeChange to 
-  // set the height of the input correctly in case there was some unsent chat message
   render() {
     const osSpecificStyles = Platform.select({
       android: {
@@ -51,8 +40,8 @@ export default class Composer extends React.Component {
         placeholder={this.props.placeholder}
         placeholderTextColor={this.props.placeholderTextColor}
         multiline={this.props.multiline}
-        onChangeText={text => this.onChangeText(text)}
-        onChange={e => this.onChange(e)}
+        onChangeText={this.onChangeText}
+        onContentSizeChange={this.onContentSizeChange}
         style={[styles.textInput, this.props.textInputStyle, osSpecificStyles]}
         value={this.props.text}
         accessibilityLabel={this.props.text || this.props.placeholder}
@@ -112,4 +101,5 @@ Composer.propTypes = {
   onInputSizeChanged: PropTypes.func,
   multiline: PropTypes.bool,
   textInputStyle: TextInput.propTypes.style,
+  initialChatText: PropTypes.string
 };
