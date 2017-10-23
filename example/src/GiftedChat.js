@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
-import moment from 'moment/min/moment-with-locales.min';
+import moment from 'moment';
 import uuid from 'uuid';
 
 import * as utils from './utils';
