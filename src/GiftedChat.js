@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Platform,
   StyleSheet,
-  View
+  View,
+  Dimensions
 } from 'react-native';
 
 import moment from 'moment';
@@ -24,6 +25,18 @@ import Send from './Send';
 import Time from './Time';
 import GiftedAvatar from './GiftedAvatar';
 import KeyboardSpacer from 'react-native-keyboard-spacer'
+
+const isIphoneX = () => {
+  let dimen = Dimensions.get('window')
+  return (
+    Platform.OS === 'ios' &&
+    !Platform.isPad &&
+    !Platform.isTVOS &&
+    (dimen.height === 812 ||
+      dimen.width === 812 ||
+      (dimen.height === 896 || dimen.width === 896))
+  )
+}
 
 class GiftedChat extends React.Component {
   constructor(props) {
@@ -220,7 +233,9 @@ class GiftedChat extends React.Component {
         <View behavior='padding' style={styles.container}>
           {this.renderMessages()}
           {this.renderInputToolbar()}
-          {Platform.OS === 'ios' && <KeyboardSpacer />}
+          {Platform.OS === 'ios' && (
+          <KeyboardSpacer topSpacing={isIphoneX() ? -34 : 0} />
+          )}
         </View>
       );
   }
