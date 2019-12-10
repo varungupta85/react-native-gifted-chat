@@ -1,29 +1,24 @@
-import React from 'react';
-import {
-  Platform,
-  StyleSheet,
-  View,
-  Dimensions
-} from 'react-native';
+import React from 'react'
+import { Platform, StyleSheet, View, Dimensions } from 'react-native'
 
-import moment from 'moment';
-import uuid from 'uuid';
+import moment from 'moment'
+import uuid from 'uuid'
 import PropTypes from 'prop-types'
 
-import * as utils from './utils';
-import Avatar from './Avatar';
-import Bubble from './Bubble';
-import MessageImage from './MessageImage';
-import MessageText from './MessageText';
-import Composer from './Composer';
-import Day from './Day';
-import InputToolbar from './InputToolbar';
-import LoadEarlier from './LoadEarlier';
-import Message from './Message';
-import MessageContainer from './MessageContainer';
-import Send from './Send';
-import Time from './Time';
-import GiftedAvatar from './GiftedAvatar';
+import * as utils from './utils'
+import Avatar from './Avatar'
+import Bubble from './Bubble'
+import MessageImage from './MessageImage'
+import MessageText from './MessageText'
+import Composer from './Composer'
+import Day from './Day'
+import InputToolbar from './InputToolbar'
+import LoadEarlier from './LoadEarlier'
+import Message from './Message'
+import MessageContainer from './MessageContainer'
+import Send from './Send'
+import Time from './Time'
+import GiftedAvatar from './GiftedAvatar'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 const isIphoneX = () => {
@@ -40,159 +35,164 @@ const isIphoneX = () => {
 
 class GiftedChat extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     // default values
-    this._isMounted = false;
-    this._keyboardHeight = 0;
-    this._bottomOffset = 0;
-    this._maxHeight = null;
-    this._isFirstLayout = true;
-    this._locale = 'en';
-    this._messages = [];
+    this._isMounted = false
+    this._keyboardHeight = 0
+    this._bottomOffset = 0
+    this._maxHeight = null
+    this._isFirstLayout = true
+    this._locale = 'en'
+    this._messages = []
 
     this.state = {
       text: ''
-    };
+    }
 
-    this.onSend = this.onSend.bind(this);
-    this.getLocale = this.getLocale.bind(this);
-    this.onInputTextChanged = this.onInputTextChanged.bind(this);
+    this.onSend = this.onSend.bind(this)
+    this.getLocale = this.getLocale.bind(this)
+    this.onInputTextChanged = this.onInputTextChanged.bind(this)
 
     this.invertibleScrollViewProps = {
       inverted: true,
-      keyboardShouldPersistTaps: this.props.keyboardShouldPersistTaps,
-    };
+      keyboardShouldPersistTaps: this.props.keyboardShouldPersistTaps
+    }
   }
 
   static append(currentMessages = [], messages) {
     if (!Array.isArray(messages)) {
-      messages = [messages];
+      messages = [messages]
     }
-    return messages.concat(currentMessages);
+    return messages.concat(currentMessages)
   }
 
   static prepend(currentMessages = [], messages) {
     if (!Array.isArray(messages)) {
-      messages = [messages];
+      messages = [messages]
     }
-    return currentMessages.concat(messages);
+    return currentMessages.concat(messages)
   }
 
   getChildContext() {
     return {
-      getLocale: this.getLocale,
-    };
+      getLocale: this.getLocale
+    }
   }
 
   componentWillMount() {
-    this.setIsMounted(true);
-    this.initLocale();
-    this.initMessages(this.props.messages);
+    this.setIsMounted(true)
+    this.initLocale()
+    this.initMessages(this.props.messages)
   }
 
   componentWillUnmount() {
-    this.setIsMounted(false);
+    this.setIsMounted(false)
   }
 
   componentWillReceiveProps(nextProps = {}) {
-    this.initMessages(nextProps.messages);
+    this.initMessages(nextProps.messages)
   }
 
   initLocale() {
-    if (this.props.locale === null || moment.locales().indexOf(this.props.locale) === -1) {
-      this.setLocale('en');
+    if (
+      this.props.locale === null ||
+      moment.locales().indexOf(this.props.locale) === -1
+    ) {
+      this.setLocale('en')
     } else {
-      this.setLocale(this.props.locale);
+      this.setLocale(this.props.locale)
     }
   }
 
   initMessages(messages = []) {
-    this.setMessages(messages);
+    this.setMessages(messages)
   }
 
   setLocale(locale) {
-    this._locale = locale;
+    this._locale = locale
   }
 
   getLocale() {
-    return this._locale;
+    return this._locale
   }
 
   setMessages(messages) {
-    this._messages = messages;
+    this._messages = messages
   }
 
   getMessages() {
-    return this._messages;
+    return this._messages
   }
 
   setIsMounted(value) {
-    this._isMounted = value;
+    this._isMounted = value
   }
 
   getIsMounted() {
-    return this._isMounted;
+    return this._isMounted
   }
 
   scrollToBottom(animated = true) {
-    if (this._messageContainerRef === null) { return }
+    if (this._messageContainerRef === null) {
+      return
+    }
     this._messageContainerRef.scrollTo({
-      y: 0,
-      animated,
-    });
+      offset: 0,
+      animated
+    })
   }
 
   renderMessages() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <MessageContainer
           {...this.props}
           invertibleScrollViewProps={this.invertibleScrollViewProps}
           messages={this.getMessages()}
-          ref={component => this._messageContainerRef = component}
+          ref={component => (this._messageContainerRef = component)}
         />
         {this.renderChatFooter()}
       </View>
-    );
+    )
   }
 
   onSend(messages = [], shouldResetInputToolbar = false) {
     if (!Array.isArray(messages)) {
-      messages = [messages];
+      messages = [messages]
     }
 
-    messages = messages.map((message) => {
+    messages = messages.map(message => {
       return {
         ...message,
         user: this.props.user,
         createdAt: new Date(),
-        _id: this.props.messageIdGenerator(),
-      };
-    });
+        _id: this.props.messageIdGenerator()
+      }
+    })
 
     if (shouldResetInputToolbar === true) {
-      this.resetInputToolbar();
+      this.resetInputToolbar()
     }
 
-    this.props.onSend(messages);
-    this.scrollToBottom();
+    this.props.onSend(messages)
+    this.scrollToBottom()
   }
 
   resetInputToolbar() {
     if (this.textInput) {
-      this.textInput.clear();
+      this.textInput.clear()
     }
     this.setState({
-      text: '',
-    });
+      text: ''
+    })
   }
 
   onInputTextChanged(text) {
     if (this.props.onInputTextChanged) {
-      this.props.onInputTextChanged(text);
+      this.props.onInputTextChanged(text)
     }
-    this.setState({text});
+    this.setState({ text })
   }
 
   renderInputToolbar() {
@@ -203,65 +203,59 @@ class GiftedChat extends React.Component {
       onTextChanged: this.onInputTextChanged,
       textInputProps: {
         ...this.props.textInputProps,
-        ref: textInput => this.textInput = textInput,
+        ref: textInput => (this.textInput = textInput),
         maxLength: this.props.maxInputLength,
         initialChatText: this.props.initialChatText
       }
-    };
-    if (this.props.renderInputToolbar) {
-      return this.props.renderInputToolbar(inputToolbarProps);
     }
-    return (
-      <InputToolbar
-        {...inputToolbarProps}
-      />
-    );
+    if (this.props.renderInputToolbar) {
+      return this.props.renderInputToolbar(inputToolbarProps)
+    }
+    return <InputToolbar {...inputToolbarProps} />
   }
 
   renderChatFooter() {
     if (this.props.renderChatFooter) {
       const footerProps = {
-        ...this.props,
-      };
-      return this.props.renderChatFooter(footerProps);
+        ...this.props
+      }
+      return this.props.renderChatFooter(footerProps)
     }
-    return null;
+    return null
   }
 
   render() {
-      return (
-        <View behavior='padding' style={styles.container}>
-          {this.renderMessages()}
-          {this.renderInputToolbar()}
-          {Platform.OS === 'ios' && (
+    return (
+      <View behavior="padding" style={styles.container}>
+        {this.renderMessages()}
+        {this.renderInputToolbar()}
+        {Platform.OS === 'ios' && (
           <KeyboardSpacer topSpacing={isIphoneX() ? -34 : 0} />
-          )}
-        </View>
-      );
+        )}
+      </View>
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-});
+    flex: 1
+  }
+})
 
 GiftedChat.childContextTypes = {
-  getLocale: PropTypes.func,
-};
+  getLocale: PropTypes.func
+}
 
 GiftedChat.defaultProps = {
   messages: [],
-  onSend: () => {
-  },
+  onSend: () => {},
   loadEarlier: false,
-  onLoadEarlier: () => {
-  },
+  onLoadEarlier: () => {},
   locale: null,
   keyboardShouldPersistTaps: Platform.select({
     ios: 'never',
-    android: 'always',
+    android: 'always'
   }),
   renderAvatar: null,
   renderBubble: null,
@@ -283,7 +277,7 @@ GiftedChat.defaultProps = {
   isLoadingEarlier: false,
   messageIdGenerator: () => uuid.v4(),
   maxInputLength: null
-};
+}
 
 GiftedChat.propTypes = {
   messages: PropTypes.array,
@@ -314,8 +308,8 @@ GiftedChat.propTypes = {
   maxInputLength: PropTypes.number,
   isLoadingEarlier: PropTypes.bool,
   messageIdGenerator: PropTypes.func,
-  keyboardShouldPersistTaps: PropTypes.oneOf(['always', 'never', 'handled']),
-};
+  keyboardShouldPersistTaps: PropTypes.oneOf(['always', 'never', 'handled'])
+}
 
 export {
   GiftedChat,
@@ -333,4 +327,4 @@ export {
   Time,
   GiftedAvatar,
   utils
-};
+}
