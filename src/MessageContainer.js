@@ -74,7 +74,6 @@ export default class MessageContainer extends React.Component {
   }
 
   renderRow = ({ item: message, index }) => {
-    console.log('Received item ' + JSON.stringify(message))
     if (!message._id && message._id !== 0) {
       console.warn(
         'GiftedChat: `_id` is missing for message',
